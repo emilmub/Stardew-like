@@ -25,7 +25,7 @@ public class TimeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHour = startOfDay;
     }
 
     // Update is called once per frame
@@ -49,7 +49,7 @@ public class TimeManager : MonoBehaviour
             currentHour++;
         }
 
-        if (currentHour >= endOfDay)
+        if (currentHour >= endOfDay && currentHour <= startOfDay)
         {
             currentHour = startOfDay;
             currentDay++;

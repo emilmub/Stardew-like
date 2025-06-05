@@ -2,17 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileData
-{
-    public bool isTillable;
-    public bool isTilled;
-
-    public bool isPlantable;
-
-    public bool hasPlant;
-    public bool hasSeeds;
-}
-
 public class TileManager : MonoBehaviour
 {
     // Start is called before the first frame update

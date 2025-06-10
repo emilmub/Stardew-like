@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f00109f41bd534b9e0d4b273b3541e, type: 3}
   m_Name: DirtTileData
   m_EditorClassIdentifier: 
-  isTillable: 0
+  tileType: dirt
+  isTillable: 1
   isTilled: 0
-  isPlantable: 0
+  isPlantable: 1
   hasPlant: 0
   hasSeeds: 0

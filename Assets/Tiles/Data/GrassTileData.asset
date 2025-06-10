@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f00109f41bd534b9e0d4b273b3541e, type: 3}
   m_Name: GrassTileData
   m_EditorClassIdentifier: 
+  tileType: grass
   isTillable: 0
   isTilled: 0
   isPlantable: 0

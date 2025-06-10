@@ -71,7 +71,7 @@ public class TimeManager : MonoBehaviour
             // TODO: Event for end of year?
         }
         OnTimeChanged?.Invoke();
-        Debug.Log($"Time advanced to: {GetTimeString()}");
+        // Debug.Log($"Time advanced to: {GetTimeString()}");
     }
 
     public string GetTimeString()

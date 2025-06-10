@@ -11,11 +11,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private GameObject tileManager;
 
+    [SerializeField] private GameObject inventoryCanvas;
+
     private TileManager tileManagerScript;
+    private Inventory inventory;
+
+    [SerializeField] private InventoryItem testItem;
     // Start is called before the first frame update
     void Start()
     {
         tileManagerScript = tileManager.GetComponent<TileManager>();
+        inventory = GetComponent<Inventory>();
     }
 
     Vector3Int MouseToCell()
@@ -65,12 +71,25 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-
-        // TODO: Make an UseItem function that changes with the item at hand
-        if (Input.GetMouseButtonDown(0))
+        if (!inventoryCanvas.activeSelf)
         {
-            Till();
+            Move();
+            // TODO: Make an UseItem function that changes with the item at hand
+            // TODO: Make a better way to parse inputs so that it can be changed at runtime if needed
+            if (Input.GetMouseButtonDown(0))
+            {
+                Till();
+            }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            inventory.AddItem(testItem.itemData, 1);
         }
 
 

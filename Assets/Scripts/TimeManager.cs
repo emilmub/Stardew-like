@@ -22,6 +22,8 @@ public class TimeManager : MonoBehaviour
     // in-game time [minutes] = real-time [seconds] * timeSpeed
     // This means that for each x seconds, x*timeSpeed minutes occur in-game
     float timer = 0.0f;
+
+    bool isDayOver = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,11 +33,14 @@ public class TimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime; // Add the amount of seconds from one frame to another
-        if (timer > timeSpeed)
+        if (!isDayOver)
         {
-            AdvanceTime();
-            timer = 0.0f;
+            timer += Time.deltaTime; // Add the amount of seconds from one frame to another
+            if (timer > timeSpeed)
+            {
+                AdvanceTime();
+                timer = 0.0f;
+            }
         }
     }
 
@@ -49,10 +54,15 @@ public class TimeManager : MonoBehaviour
             currentHour++;
         }
 
-        if (currentHour >= endOfDay && currentHour <= startOfDay)
+        if (currentHour >= 24)
         {
-            currentHour = startOfDay;
+            currentHour = 0;
             currentDay++;
+        }
+
+        if (currentHour >= endOfDay && currentHour < startOfDay)
+        {
+            isDayOver = true;
             // TODO: What happens at the end of day
             // TODO: Transition into the next day
         }

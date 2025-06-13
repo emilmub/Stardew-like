@@ -12,6 +12,7 @@ public class TimeManager : MonoBehaviour
     public int currentYear = 1;
 
     public event Action OnTimeChanged;
+    public event Action OnDayEnded;
 
     [SerializeField] int numberOfMonths; // TODO: How many months?
 
@@ -63,6 +64,7 @@ public class TimeManager : MonoBehaviour
         if (currentHour >= endOfDay && currentHour < startOfDay)
         {
             isDayOver = true;
+            OnDayEnded?.Invoke();
             // TODO: What happens at the end of day
             // TODO: Transition into the next day
         }

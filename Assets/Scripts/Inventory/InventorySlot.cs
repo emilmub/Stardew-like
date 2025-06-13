@@ -8,9 +8,15 @@ using UnityEngine.EventSystems;
 public class InventorySlot : MonoBehaviour
 {
     public Image icon;
+    public Image border;
     public TextMeshProUGUI quantityText;
     public InventoryItem currentItem;
-    
+
+    public void Start()
+    {
+        quantityText.text = "";
+        currentItem = null;
+    }
 
     public void Set(InventoryItem item)
     {
@@ -26,5 +32,13 @@ public class InventorySlot : MonoBehaviour
         icon.sprite = null;
         icon.enabled = false;
         quantityText.text = "";
+    }
+
+    public void SetBorderColor(Color color)
+    {
+        if (border != null)
+        {
+            border.color = color;
+        }
     }
 }

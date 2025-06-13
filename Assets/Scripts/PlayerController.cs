@@ -12,16 +12,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject tileManager;
 
     [SerializeField] private GameObject inventoryCanvas;
+    [SerializeField] InventoryUI hotBarUI;
+    [SerializeField] private GameObject hotBarPanel;
 
     private TileManager tileManagerScript;
     private Inventory inventory;
 
     [SerializeField] private InventoryItem testItem;
+
+    private int selectedIndex;
     // Start is called before the first frame update
     void Start()
     {
         tileManagerScript = tileManager.GetComponent<TileManager>();
         inventory = GetComponent<Inventory>();
+        selectedIndex = 0;
+        SelectItem(selectedIndex);
     }
 
     Vector3Int MouseToCell()
@@ -68,6 +74,61 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void SelectItem(int index)
+    {
+
+        for (int i = 0; i < hotBarUI.slots.Length; ++i)
+        {
+            hotBarUI.slots[i].SetBorderColor(Color.yellow);
+        }
+        
+        selectedIndex = index;
+        hotBarUI.slots[selectedIndex].SetBorderColor(Color.red);
+
+
+        InventoryItem selectedItem = hotBarUI.slots[selectedIndex].currentItem;
+        if (selectedItem != null)
+        {
+            Debug.Log("Selected: " + selectedItem.itemData.name);
+        }
+        else
+        {
+            Debug.Log("Selected: Empty Slot");
+        }
+    }
+
+    void HotBarSelection()
+    {
+        for (int i = 0; i < 9; ++i)
+        {
+            if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + i)))
+            {
+                SelectItem(i);
+                break;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                SelectItem(9);
+                break;
+            }
+        }
+        float scroll = Input.mouseScrollDelta.y;
+        if (scroll != 0.0f)
+        {
+            selectedIndex += scroll > 0 ? 1 : scroll < 0 ? -1 : 0;
+            if (selectedIndex >= 10)
+            {
+                selectedIndex %= 10;
+            }
+            else if (selectedIndex < 0) 
+            {
+                selectedIndex += 10;
+            }
+            
+            SelectItem(selectedIndex);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -80,11 +141,13 @@ public class PlayerController : MonoBehaviour
             {
                 Till();
             }
+            HotBarSelection();
         }
         
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
+            hotBarPanel.SetActive(!hotBarPanel.activeSelf);
         }
 
         if (Input.GetKeyDown(KeyCode.M))
@@ -92,7 +155,7 @@ public class PlayerController : MonoBehaviour
             inventory.AddItem(testItem.itemData, 1);
         }
 
-
+        
     }
 
     

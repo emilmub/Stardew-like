@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
     public int maxSlots = 30;
     public List<InventoryItem> items = new List<InventoryItem>();
     [SerializeField] InventoryUI inventoryUI;
+    [SerializeField] InventoryUI hotBarUI;
 
     public bool AddItem(ItemData data, int amount = 1)
     {
@@ -35,6 +36,7 @@ public class Inventory : MonoBehaviour
 
         
         inventoryUI.UpdateUI();
+        hotBarUI.UpdateUI();
 
         return amount == 0;
     }

@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
 
         InventoryItem selectedItem = hotBarUI.slots[selectedIndex].currentItem;
-        if (selectedItem != null)
+        if (!selectedItem.IsNull())
         {
             Debug.Log("Selected: " + selectedItem.itemData.name);
         }

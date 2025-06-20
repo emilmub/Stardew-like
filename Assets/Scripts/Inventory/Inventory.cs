@@ -29,13 +29,24 @@ public class Inventory : MonoBehaviour
         // and add the max amount allowed
         if (data.isStackable)
         {
-            InventoryItem existing = items.FindLast(i => i.itemData == data);
-            if (existing != null)
+            List<InventoryItem> existing = items.FindAll(i => i.itemData == data);
+            // If a match was found
+            if (existing.Count > 0)
             {
-                int space = data.maxStackSize - existing.quantity;
-                int addAmount = Mathf.Min(space, amount);
-                existing.quantity += addAmount;
-                amount -= addAmount;
+                for (int i = 0; i < existing.Count; i++)
+                {
+                    if (amount > 0)
+                    {
+                        int space = data.maxStackSize - existing[i].quantity;
+                        int addAmount = Mathf.Min(space, amount);
+                        existing[i].quantity += addAmount;
+                        amount -= addAmount;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
         }
 
@@ -48,7 +59,7 @@ public class Inventory : MonoBehaviour
             // Add amount to the first null element in the list
             for (int i = 0; i < items.Count; i++)
             {
-                if (items[i].itemData == null || items[i].quantity == 0)
+                if (items[i].IsNull())
                 {
                     items[i] = new InventoryItem(data, addAmount);
                     break;

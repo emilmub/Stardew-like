@@ -13,4 +13,21 @@ public class InventoryItem
         itemData = data;
         quantity = qty;
     }
+
+    public InventoryItem(InventoryItem item)
+    {
+        itemData = item.itemData;
+        quantity = item.quantity;
+    }
+
+    public void Clear()
+    { 
+        itemData = null;
+        quantity = 0; 
+    }
+
+    public bool IsNull()
+    {
+        return itemData == null || quantity == 0;
+    }
 }

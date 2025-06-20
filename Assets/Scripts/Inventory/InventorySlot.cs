@@ -5,17 +5,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public Image icon;
     public Image border;
     public TextMeshProUGUI quantityText;
     public InventoryItem currentItem;
+    public int slotIndex;
+
+    private InventoryUI inventoryUI;
 
     public void Start()
     {
         quantityText.text = "";
-        currentItem = null;
+        currentItem = new InventoryItem(null, 0);
+        inventoryUI = GetComponentInParent<InventoryUI>();
     }
 
     public void Set(InventoryItem item)
@@ -39,6 +43,14 @@ public class InventorySlot : MonoBehaviour
         if (border != null)
         {
             border.color = color;
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            inventoryUI.OnSlotClicked(this);
         }
     }
 }

@@ -5029,7 +5029,6 @@ GameObject:
   - component: {fileID: 268898771}
   - component: {fileID: 268898770}
   - component: {fileID: 268898769}
-  - component: {fileID: 268898773}
   m_Layer: 5
   m_Name: InventoryCanvas
   m_TagString: Untagged
@@ -5121,21 +5120,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &268898773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268898768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf4d339850ef8144e8db787e9cbf3c9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 1074922031}
-  slots: []
-  dragIcon: {fileID: 158704335}
 --- !u!1001 &299238889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7568,7 +7552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSlots: 30
   items: []
-  inventoryUI: {fileID: 268898773}
+  inventoryUI: {fileID: 1208790608}
   hotBarUI: {fileID: 673996320}
 --- !u!224 &1133809945 stripped
 RectTransform:
@@ -7809,6 +7793,7 @@ GameObject:
   - component: {fileID: 1208790607}
   - component: {fileID: 1208790606}
   - component: {fileID: 1208790605}
+  - component: {fileID: 1208790608}
   m_Layer: 5
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -7927,6 +7912,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1208790603}
   m_CullTransparentMesh: 1
+--- !u!114 &1208790608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208790603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4d339850ef8144e8db787e9cbf3c9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 1074922031}
+  slots: []
+  dragIcon: {fileID: 158704335}
 --- !u!1 &1218770260
 GameObject:
   m_ObjectHideFlags: 0

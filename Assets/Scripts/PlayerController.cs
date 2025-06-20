@@ -129,6 +129,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SwitchInventory()
+    {
+        inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
+        hotBarPanel.SetActive(!hotBarPanel.activeSelf);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -146,8 +152,7 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            inventoryCanvas.SetActive(!inventoryCanvas.activeSelf);
-            hotBarPanel.SetActive(!hotBarPanel.activeSelf);
+            SwitchInventory();
         }
 
         if (Input.GetKeyDown(KeyCode.M))

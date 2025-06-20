@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] Inventory inventory;
     public InventorySlot[] slots;
-
+    public InventoryPanelType panelType;
     public Image dragIcon;
     private InventoryItem draggedItem = new InventoryItem(null, 0);
     private int draggedFromIndex = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,19 @@ public class InventoryUI : MonoBehaviour
         if (!draggedItem.IsNull())
         {
             dragIcon.transform.position = Input.mousePosition;
+        }
+
+        // If we click outside of the inventory panel (excluding the hotbarpanel)
+        if (panelType != InventoryPanelType.Hotbar && Input.GetMouseButtonDown(0))
+        {
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                if (!draggedItem.IsNull())
+                {
+                    Debug.Log("Throw object outside of inventory");
+                }
+                // TODO: Should I close the inventory if the user clicks outside of the inventory without an object?
+            }
         }
     }
 
@@ -52,6 +67,9 @@ public class InventoryUI : MonoBehaviour
     public void OnSlotClicked(InventorySlot clickedSlot)
     {
         int clickedIndex = clickedSlot.slotIndex;
+        
+        // We don't want this functionality with the hotbar
+        if (panelType == InventoryPanelType.Hotbar) return;
 
         // If we did not have an item before clicking
         if (draggedItem.IsNull())
@@ -106,8 +124,6 @@ public class InventoryUI : MonoBehaviour
                 UpdateUI();
             }
             // TODO: What happens if we drop outside the inventory panel
-
-            // TODO: What happens if we drop into a slot that already contains an item
         }
     }
 }

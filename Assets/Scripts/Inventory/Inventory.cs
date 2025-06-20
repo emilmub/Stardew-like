@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -8,6 +9,19 @@ public class Inventory : MonoBehaviour
     public List<InventoryItem> items = new List<InventoryItem>();
     [SerializeField] InventoryUI inventoryUI;
     [SerializeField] InventoryUI hotBarUI;
+
+    private void Awake()
+    {
+        while (items.Count < maxSlots)
+        {
+            items.Add(new InventoryItem(null, 0));
+        }
+    }
+
+    public bool HasEmptySlot()
+    {
+        return items.Any(item => item.itemData == null || item.quantity == 0);
+    }
 
     public bool AddItem(ItemData data, int amount = 1)
     {
@@ -26,11 +40,20 @@ public class Inventory : MonoBehaviour
         }
 
         // If the item was not stackable or there is a remaining amount of the stackable item,
+        // And there is still an empty spot in the inventory, then
         // Add a new item to the list with the max amount allowed
-        while (amount > 0 && items.Count < maxSlots)
+        while (amount > 0 && HasEmptySlot())
         {
             int addAmount = Mathf.Min(data.maxStackSize, amount);
-            items.Add(new InventoryItem(data, addAmount));
+            // Add amount to the first null element in the list
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i].itemData == null || items[i].quantity == 0)
+                {
+                    items[i] = new InventoryItem(data, addAmount);
+                    break;
+                }
+            }
             amount -= addAmount;
         }
 
@@ -53,7 +76,7 @@ public class Inventory : MonoBehaviour
                 amount -= removeAmount;
                 if (items[i].quantity <= 0)
                 {
-                    items.RemoveAt(i);
+                    items[i] = null;
                 }
             }
         } 

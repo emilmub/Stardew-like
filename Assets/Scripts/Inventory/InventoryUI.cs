@@ -73,20 +73,41 @@ public class InventoryUI : MonoBehaviour
         // If we are already dragging an item
         else
         {
+            // If we drop the item into an empty slot
             if (clickedSlot.currentItem.IsNull() && inventory.items[clickedIndex].IsNull())
             {
-                inventory.items[clickedIndex] = new InventoryItem(draggedItem);
-                draggedFromIndex = -1;
 
+                inventory.items[clickedIndex] = new InventoryItem(draggedItem); // drop the item
+                draggedFromIndex = -1; // Reset the index
+
+                // Reset the dragged icon
                 dragIcon.enabled = false;
                 dragIcon.sprite = null;
 
+                // Reset the dragged item
                 draggedItem.Clear();
 
                 Debug.Log("Dropped item in empty slot");
                 UpdateUI();
                 
             }
+            // If we drop the item into an occupied slot
+            else if (!clickedSlot.currentItem.IsNull() && !inventory.items[clickedIndex].IsNull())
+            {
+                InventoryItem tempItem = clickedSlot.currentItem;
+
+                inventory.items[clickedIndex] = new InventoryItem(draggedItem);
+
+                draggedItem = new InventoryItem(clickedSlot.currentItem);
+
+                dragIcon.sprite = draggedItem.itemData.icon;
+
+                Debug.Log("Dropped item in occupied slot");
+                UpdateUI();
+            }
+            // TODO: What happens if we drop outside the inventory panel
+
+            // TODO: What happens if we drop into a slot that already contains an item
         }
     }
 }

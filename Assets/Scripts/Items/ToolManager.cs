@@ -23,7 +23,6 @@ public class ToolManager : MonoBehaviour
         tileManagerScript = tileManager.GetComponent<TileManager>();
     }
 
-    // Update is called once per frame
     public void UseTool(ToolData tool)
     {
         switch (tool.toolType)
@@ -51,15 +50,7 @@ public class ToolManager : MonoBehaviour
         return groundTilemap.WorldToCell(worldPoint);
     }
 
-    float TaxicabDistance(Vector3 vector)
-    {
-        float suma = 0;
-        for(int i = 0; i < 3; i++) 
-        {
-            suma += Mathf.Abs(vector[i]);
-        }
-        return suma;
-    }
+    
 
     void DebugVector(Vector3 vector, string name)
     {
@@ -76,8 +67,8 @@ public class ToolManager : MonoBehaviour
         Vector3 vectorPlayerToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         vectorPlayerToMouse.z = 0.0f;
         vectorPlayerToMouse -= transform.position;
-        float vectorDistance = TaxicabDistance(vectorPlayerToMouse);
-        Vector3Int clickedCell = vectorDistance < maxDistance? MouseToCell() : groundTilemap.WorldToCell(Vector3.Normalize(vectorPlayerToMouse));
+        float vectorDistance = MathUtil.TaxicabDistance(vectorPlayerToMouse);
+        Vector3Int clickedCell = vectorDistance < maxDistance? MouseToCell() : groundTilemap.WorldToCell(Vector3.Normalize(vectorPlayerToMouse)*maxDistance + transform.position);
 
         TileBase clickedTile = groundTilemap.GetTile(clickedCell);
         TypedTile tile = clickedTile as TypedTile;

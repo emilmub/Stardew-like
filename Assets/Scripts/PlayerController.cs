@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
 
     private int selectedIndex;
     private InventoryItem selectedItem;
+    [SerializeField] private GameObject SelectionSquare;
 
-    [SerializeField] private ToolManager toolManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -130,6 +130,14 @@ public class PlayerController : MonoBehaviour
             }
 
             HotBarSelection();
+
+            Vector3 vectorPlayerToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            vectorPlayerToMouse.z = 0.0f;
+            vectorPlayerToMouse -= transform.position;
+            float vectorDistance = MathUtil.TaxicabDistance(vectorPlayerToMouse);
+            SelectionSquare.transform.position = vectorDistance < 2 ? vectorPlayerToMouse : Vector3.Normalize(vectorPlayerToMouse) * 2;
+            SelectionSquare.transform.position += transform.position;
+            SelectionSquare.transform.position += new Vector3(0.5f, 0);
         }
         
         if (Input.GetKeyDown(KeyCode.Tab))

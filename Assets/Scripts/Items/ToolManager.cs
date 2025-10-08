@@ -50,13 +50,38 @@ public class ToolManager : MonoBehaviour
         worldPoint.z = 0.0f;
         return groundTilemap.WorldToCell(worldPoint);
     }
-    void Till()
+
+    float TaxicabDistance(Vector3 vector)
+    {
+        float suma = 0;
+        for(int i = 0; i < 3; i++) 
+        {
+            suma += Mathf.Abs(vector[i]);
+        }
+        return suma;
+    }
+
+    void DebugVector(Vector3 vector, string name)
+    {
+        Debug.Log(name + " x: " + vector.x + " y: " + vector.y + " z: " + vector.z);
+    }
+
+    void Till(int maxDistance = 2)
     {
         // Function for tilling untilled soil
 
         // Detect which cell was clicked
-        // TODO: Limit distance for tilling soil only to cells immidiate to the player
-        Vector3Int clickedCell = MouseToCell();
+
+        // Limit distance for tilling soil only to cells within a taxicab radius to the player
+        Vector3 vectorPlayerToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        vectorPlayerToMouse.z = 0.0f;
+        vectorPlayerToMouse -= transform.position;
+        float vectorDistance = TaxicabDistance(vectorPlayerToMouse);
+        DebugVector(Camera.main.ScreenToWorldPoint(Input.mousePosition), "click");
+        DebugVector(transform.position, "player");
+        Debug.Log("Distance to player: " + vectorDistance);
+        Vector3Int clickedCell = vectorDistance < maxDistance? MouseToCell() : groundTilemap.WorldToCell(Vector3.Normalize(vectorPlayerToMouse));
+
         TileBase clickedTile = groundTilemap.GetTile(clickedCell);
         TypedTile tile = clickedTile as TypedTile;
         TileData tileData = tileManagerScript.GetOrCreateTileData(clickedCell, tile.tileType);

@@ -4296,6 +4296,7 @@ GameObject:
   - component: {fileID: 1074922029}
   - component: {fileID: 1074922030}
   - component: {fileID: 1074922031}
+  - component: {fileID: 1074922032}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4316,15 +4317,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  groundTilemap: {fileID: 431654451}
-  tileManager: {fileID: 241752284}
   inventoryCanvas: {fileID: 268898768}
   hotBarUI: {fileID: 673996320}
   hotBarPanel: {fileID: 673996318}
-  tilledSoil: {fileID: 11400000, guid: 104f98342292c9343975523099ec68cd, type: 2}
   testItem:
-    itemData: {fileID: 11400000, guid: a080d2623ee705b449d1ac08f2e7ab89, type: 2}
+    itemData: {fileID: 11400000, guid: d278d5863c938ec41baabd852f773049, type: 2}
     quantity: 1
+  toolManager: {fileID: 0}
 --- !u!212 &1074922027
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4480,6 +4479,21 @@ MonoBehaviour:
   items: []
   inventoryUI: {fileID: 1208790608}
   hotBarUI: {fileID: 673996320}
+--- !u!114 &1074922032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074922025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb9a620b7b735544966d9a0279e9ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundTilemap: {fileID: 431654451}
+  tileManager: {fileID: 241752284}
+  tilledSoil: {fileID: 11400000, guid: 104f98342292c9343975523099ec68cd, type: 2}
 --- !u!224 &1133809945 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5069228066017398083, guid: aebc6c0d88be43d4c8d210987f4b5838, type: 3}

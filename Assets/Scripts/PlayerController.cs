@@ -29,8 +29,6 @@ public class PlayerController : MonoBehaviour
         SelectItem(selectedIndex);
     }
 
-    
-
     void Move()
     {
         // Player movement on the screen
@@ -59,12 +57,10 @@ public class PlayerController : MonoBehaviour
         selectedItem = hotBarUI.slots[selectedIndex].currentItem;
         if (!selectedItem.IsNull())
         {
-            // TODO: Return (or set in a member variable, or something) the selected item for the player to use
             Debug.Log("Selected: " + selectedItem.itemData.name);
         }
         else
         {
-            //TODO: Set the selected item to null or something like that
             Debug.Log("Selected: Empty Slot");
         }
     }
@@ -122,14 +118,17 @@ public class PlayerController : MonoBehaviour
     {
         if (!inventoryCanvas.activeSelf)
         {
+            // TODO: Make a better way to parse inputs so that it can be changed at runtime if needed
+
             // If the inventory is not open then we can interact with the world
             Move();
-            // TODO: Make an UseItem function that changes with the item at hand
-            // TODO: Make a better way to parse inputs so that it can be changed at runtime if needed
+
+            // Use item by clicking the mouse
             if (Input.GetMouseButtonDown(0) && !selectedItem.IsNull())
             {
                 selectedItem.itemData.Use();
             }
+
             HotBarSelection();
         }
         
@@ -143,10 +142,6 @@ public class PlayerController : MonoBehaviour
         {
             // Function for testing inventory, can be used to test other things in the future
             inventory.AddItem(testItem.itemData, 1);
-        }
-
-        
+        }   
     }
-
-    
 }

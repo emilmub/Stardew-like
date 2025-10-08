@@ -77,9 +77,6 @@ public class ToolManager : MonoBehaviour
         vectorPlayerToMouse.z = 0.0f;
         vectorPlayerToMouse -= transform.position;
         float vectorDistance = TaxicabDistance(vectorPlayerToMouse);
-        DebugVector(Camera.main.ScreenToWorldPoint(Input.mousePosition), "click");
-        DebugVector(transform.position, "player");
-        Debug.Log("Distance to player: " + vectorDistance);
         Vector3Int clickedCell = vectorDistance < maxDistance? MouseToCell() : groundTilemap.WorldToCell(Vector3.Normalize(vectorPlayerToMouse));
 
         TileBase clickedTile = groundTilemap.GetTile(clickedCell);

@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private InventoryItem selectedItem;
     [SerializeField] private GameObject SelectionSquare;
 
+    [SerializeField] private Tilemap groundTilemap;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -137,9 +139,10 @@ public class PlayerController : MonoBehaviour
             float vectorDistance = MathUtil.TaxicabDistance(vectorPlayerToMouse);
             SelectionSquare.transform.position = vectorDistance < 2 ? vectorPlayerToMouse : Vector3.Normalize(vectorPlayerToMouse) * 2;
             SelectionSquare.transform.position += transform.position;
-            SelectionSquare.transform.position += new Vector3(0.5f, 0);
+            SelectionSquare.transform.position = groundTilemap.WorldToCell(SelectionSquare.transform.position);
+            SelectionSquare.transform.position += new Vector3(1.0f, 0.5f);
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             // Open or close the inventory if TAB key is pressed

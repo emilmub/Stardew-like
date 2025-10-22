@@ -57,7 +57,7 @@ public class ToolManager : MonoBehaviour
         Debug.Log(name + " x: " + vector.x + " y: " + vector.y + " z: " + vector.z);
     }
 
-    void Till(int maxDistance = 2)
+    void Till(int maxDistance = 1)
     {
         // Function for tilling untilled soil
 

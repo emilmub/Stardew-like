@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
             vectorPlayerToMouse.z = 0.0f;
             vectorPlayerToMouse -= transform.position;
             float vectorDistance = MathUtil.TaxicabDistance(vectorPlayerToMouse);
-            SelectionSquare.transform.position = vectorDistance < 2 ? vectorPlayerToMouse : Vector3.Normalize(vectorPlayerToMouse) * 2;
+            SelectionSquare.transform.position = vectorDistance < 1 ? vectorPlayerToMouse : Vector3.Normalize(vectorPlayerToMouse);
             SelectionSquare.transform.position += transform.position;
             SelectionSquare.transform.position = groundTilemap.WorldToCell(SelectionSquare.transform.position);
             SelectionSquare.transform.position += new Vector3(1.0f, 0.5f);
